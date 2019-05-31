@@ -1,0 +1,37 @@
+<div class="container">
+  <h1> Calculate Your BMI</h1>
+    <input type="number" placeholder="Enter Height (in metres)" id="height" required>
+    <input type="number" placeholder="Enter Weight (in kgs)" id="weight" required>
+    <input type="button" value="Calculate" id="calculate" onclick="calculate()">
+  <h2>Your BMI is</h2>
+    <div id="result">
+
+  </div>
+</div>
+<script>
+  function calculate(){
+  var height = document.getElementById('height').value;
+  var weight = document.getElementById('weight').value;
+  if(height==''||weight==''){
+    if(height==''){
+      alert("Input value for height!");
+    }
+    else{
+      alert("Input value for weight!");
+    }
+  }
+  else{
+  $.ajax({
+    url: "https://bmi629.herokuapp.com/api/bmi629?height="+height+"&weight="+weight,
+    type: "GET",
+    success: function(response) {
+        document.getElementById('result').innerHTML=response.bmi;
+    },
+    error: function(xhr) {
+      alert("Problem occured while sending request!");
+    }
+});
+  }
+
+}
+</script>
